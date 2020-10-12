@@ -5,8 +5,6 @@ import { IUser } from './interfaces/iuser';
 export class User extends Model<User> implements IUser {
     @Column firstName: string;
     @Column lastName: string;
-    @Column avatar: string;
-    @Column birthDate: Date;
     @Column email: string;
     @Column password: string;
     @Column phone: number;

@@ -32,4 +32,8 @@ export class AuthService  implements  IAuthService {
         const accessToken = await this.jwtService.sign(payload);
         return { user: userDto, accessToken };
     };
+
+    signUp(authCredentialDto: AuthCredentialsDto): Promise<AuthSignInDto> {
+        return Promise.resolve(undefined);
+    }
 }

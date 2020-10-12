@@ -1,7 +1,22 @@
-export interface IBaseRepository<C, U, R> {
-    findAll(): Promise<R[]>;
-    findById(id: string|number): Promise<R>;
-    create(createDto: C): Promise<R>;
-    update(id: string|number, updateDto: U): Promise<R|void>;
+
+export interface FindDbEntitiesRepository <DatabaseEntity> {
+    findAll(): Promise<DatabaseEntity[]>;
+}
+
+export interface FindDbEntityRepository<DatabaseEntity> {
+    findById(id: string|number): Promise<DatabaseEntity>;
+}
+
+export interface CreateDbEntityRepository<CreateDto, DatabaseEntity> {
+    create(createDto: CreateDto): Promise<DatabaseEntity>;
+}
+
+export interface UpdateDbEntityRepository<UpdateDto> {
+    update(id: string|number, updateDto: UpdateDto): Promise<void>;
+}
+
+export interface DeleteDbEntityRepository {
     delete(id: string|number): Promise<void>;
 }
+
+

@@ -8,22 +8,21 @@ import { IUsersRepository } from './interfaces/iusers.repository';
 import { IUser } from './interfaces/iuser';
 import * as bcrypt from 'bcryptjs';
 import { USERS_MAPPER } from '../common/constants/mappers.constants';
-import { IUsersMapper } from './interfaces/iusers.mapper';
+import { IUserMapper } from './interfaces/iuser.mapper';
 
 @Injectable()
 export class UsersService implements IUsersService {
     constructor(
         @Inject(USERS_REPOSITORY) private usersRepository: IUsersRepository,
-        @Inject(USERS_MAPPER) private usersMapper: IUsersMapper,
+        @Inject(USERS_MAPPER) private usersMapper: IUserMapper,
     ) {
     }
 
     public findAll = async (): Promise<UserDto[]> => {
         try {
             const users: IUser[] = await this.usersRepository.findAll();
-            return this.usersMapper.mapToDTOs(users);
+            return this.usersMapper.mapToDtos(users);
         } catch (e) {
-            console.log(e);
             throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     };
@@ -31,7 +30,7 @@ export class UsersService implements IUsersService {
     public findOne = async (id: string | number): Promise<UserDto> => {
         try {
             const user: IUser = await this.usersRepository.findById(id);
-            return this.usersMapper.mapToDTO(user);
+            return this.usersMapper.mapToDto(user);
         } catch (e) {
             throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -54,17 +53,10 @@ export class UsersService implements IUsersService {
         try {
             await this.usersRepository.update(id, updateDto);
             const user: IUser = await this.usersRepository.findById(id);
-            return this.usersMapper.mapToDTO(user);
+            return this.usersMapper.mapToDto(user);
         } catch (e) {
             throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     };
 
-    public delete = async (id: string | number): Promise<void> => {
-        try {
-            await this.usersRepository.delete(id);
-        } catch (e) {
-            throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    };
 }

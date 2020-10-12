@@ -8,7 +8,7 @@ export const mySqlConfig: SequelizeModuleOptions = {
     port: 3306,
     username: 'root',
     password: '1Swat741852963',
-    database: 'ems',
+    database: 'telega',
     models: [User],
     logging: false
 };
