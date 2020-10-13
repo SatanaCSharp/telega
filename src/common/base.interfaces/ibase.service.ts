@@ -6,22 +6,22 @@ export interface IBaseService<C, U, R> {
     delete(id: string | number): Promise<void>;
 }
 
-export interface FindInstancesService <ResponseDto> {
+export interface FindableService <ResponseDto> {
     findAll(): Promise<ResponseDto[]>;
 }
 
-export interface FindInstancesService<ResponseDto> {
+export interface SingleFindableService<ResponseDto> {
     findById(id: string|number): Promise<ResponseDto>;
 }
 
-export interface CreateInstanceService<CreateDto, ResponseDto> {
+export interface CreatableService<CreateDto, ResponseDto> {
     create(createDto: CreateDto): Promise<ResponseDto>;
 }
 
-export interface UpdateInstanceService<UpdateDto, ResponseDto> {
+export interface UpdatableService<UpdateDto, ResponseDto> {
     update(id: string|number, updateDto: UpdateDto): Promise<ResponseDto>;
 }
 
-export interface DeleteInstanceService<ResponseDto> {
+export interface DeletableService<ResponseDto> {
     delete(id: string|number): Promise<ResponseDto>;
 }

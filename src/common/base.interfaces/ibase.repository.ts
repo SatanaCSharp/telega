@@ -1,4 +1,3 @@
-
 export interface FindDbEntitiesRepository <DatabaseEntity> {
     findAll(): Promise<DatabaseEntity[]>;
 }

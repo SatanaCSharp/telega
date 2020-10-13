@@ -7,7 +7,7 @@ export abstract class BaseService<
     CreateDto,
     UpdateDto,
     ResponseDto,
-    Repository extends BaseRepository<DatabaseEntity, CreateDto, UpdateDto>,
+    Repository extends Partial<BaseRepository<DatabaseEntity, CreateDto, UpdateDto>>,
     Mapper extends DBEntityToDtoMapper<DatabaseEntity, ResponseDto> & DBEntitiesToDtoMapper<DatabaseEntity, ResponseDto>,
     > {
     protected constructor(

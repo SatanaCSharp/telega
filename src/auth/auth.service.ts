@@ -27,7 +27,7 @@ export class AuthService  implements  IAuthService {
     public signIn = async (authCredentialDto: AuthCredentialsDto): Promise<AuthSignInDto> => {
         const user: IUser = await this.usersRepository.findByEmail(authCredentialDto.email);
         await this.validateUser(user, authCredentialDto.password);
-        const userDto: UserDto = this.usersMapper.mapToDTO(user);
+        const userDto: UserDto = this.usersMapper.mapToDto(user);
         const payload = { id: userDto.id };
         const accessToken = await this.jwtService.sign(payload);
         return { user: userDto, accessToken };
