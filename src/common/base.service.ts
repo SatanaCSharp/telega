@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { BaseRepository } from '../base.repository/base.repository';
-import { DBEntitiesToDtoMapper, DBEntityToDtoMapper } from '../base.interfaces/db-entity.mapper';
+import { BaseRepository } from './base.repository';
+import { DBEntitiesToDtoMapper, DBEntityToDtoMapper } from './base.interfaces/db-entity.mapper';
 
 export abstract class BaseService<
     DatabaseEntity,
@@ -33,7 +33,7 @@ export abstract class BaseService<
         }
     }
 
-    public create = async (createDto: CreateDto): Promise<ResponseDto> => {
+    public create = async (createDto: CreateDto & typeof Object): Promise<ResponseDto> => {
         try {
             const entity: DatabaseEntity = await this.repository.create(createDto);
             return this.mapper.mapToDto(entity);
@@ -42,7 +42,7 @@ export abstract class BaseService<
         }
     };
 
-    public update = async (id: number, updateDto: UpdateDto): Promise<ResponseDto> => {
+    public update = async (id: number, updateDto: UpdateDto & typeof Object): Promise<ResponseDto> => {
         try {
             await this.repository.update(id, updateDto);
             const entity: DatabaseEntity = await this.repository.findById(id);

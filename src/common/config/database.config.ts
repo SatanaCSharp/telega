@@ -1,7 +1,6 @@
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
 import { User } from '../../users/users.model';
 
-
 export const mySqlConfig: SequelizeModuleOptions = {
     dialect: 'mysql',
     host: 'localhost',

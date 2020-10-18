@@ -5,7 +5,7 @@ import { IUser } from './interfaces/iuser';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
-import { BaseRepository } from '../common/base.repository/base.repository';
+import { BaseRepository } from '../common/base.repository';
 
 @Injectable()
 export class UsersRepository extends BaseRepository<IUser, CreateUserDto, UpdateUserDto> implements IUsersRepository {

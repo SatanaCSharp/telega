@@ -5,8 +5,9 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { SECRET_KEY } from '../common/config/auth.config';
-import { AUTH_SERVICE } from '../common/constants/services.constants';
+import { AUTH_SERVICE, AUTH_VALIDATOR_SERVICE } from '../common/constants/services.constants';
 import { JwtStrategy } from './jwt.strategy';
+import { AuthValidatorService } from './auth-validator.service';
 
 @Module({
     imports: [
@@ -23,6 +24,10 @@ import { JwtStrategy } from './jwt.strategy';
         {
             provide: AUTH_SERVICE,
             useClass: AuthService
+        },
+        {
+            provide: AUTH_VALIDATOR_SERVICE,
+            useClass: AuthValidatorService
         }
     ],
 })

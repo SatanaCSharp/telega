@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { mySqlConfig } from '../../ems/src/utils/config/database.config';
-import { AuthModule } from '../../ems/src/auth/auth.module';
+import { mySqlConfig } from './common/config/database.config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [

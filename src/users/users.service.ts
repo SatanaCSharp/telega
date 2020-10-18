@@ -8,13 +8,13 @@ import { IUsersRepository } from './interfaces/iusers.repository';
 import { IUser } from './interfaces/iuser';
 import { USERS_MAPPER } from '../common/constants/mappers.constants';
 import { IUsersMapper } from './interfaces/iusers.mapper';
-import { BaseService } from '../common/base.services/base.service';
+import { BaseService } from '../common/base.service';
 
 
 @Injectable()
 export class UsersService extends BaseService<
     IUser,
-    CreateUserDto,
+    CreateUserDto ,
     UpdateUserDto,
     UserDto,
     IUsersRepository,

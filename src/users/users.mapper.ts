@@ -1,8 +1,8 @@
 import { IUser } from './interfaces/iuser';
 import { UserDto } from './dto/user.dto';
-import { IUserMapper } from './interfaces/iuser.mapper';
+import { IUsersMapper } from './interfaces/iusers.mapper';
 
-export class UsersMapper implements IUserMapper  {
+export class UsersMapper implements IUsersMapper  {
     mapToDto(databaseObject: IUser): UserDto {
         return new UserDto(databaseObject);
     }

@@ -9,10 +9,10 @@ export abstract class BaseRepository<DatabaseEntity, CreateDto, UpdateDto> {
     public findById(id: number): Promise<DatabaseEntity> {
         return this.tableModel.findByPk(id)
     }
-    public create(createDto: CreateDto): Promise<DatabaseEntity> {
+    public create(createDto: CreateDto & typeof Object): Promise<DatabaseEntity> {
         return this.tableModel.create(createDto);
     }
-    public update = async (id: number| string,  updateDto: UpdateDto): Promise<void> => {
+    public update = async (id: number| string,  updateDto: UpdateDto & typeof Object): Promise<void> => {
         await this.tableModel.update(updateDto, { where: { id } })
     }
     public delete = async (id: number| string): Promise<void> => {

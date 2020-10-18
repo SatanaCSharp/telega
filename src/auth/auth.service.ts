@@ -1,4 +1,4 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { USERS_REPOSITORY } from '../common/constants/repositories.constants';
 import { IUsersRepository } from '../users/interfaces/iusers.repository';
@@ -10,30 +10,36 @@ import { AuthSignInDto } from './dto/auth-sign-in.dto';
 import { AuthCredentialsDto } from './dto/auth-creadential.dto';
 import { IUser } from '../users/interfaces/iuser';
 import { IAuthService } from './interfaces/iauth.service';
+import { AuthSignUpDto } from './dto/auth-sign-up.dto';
+import { AUTH_VALIDATOR_SERVICE } from '../common/constants/services.constants';
+import { AuthValidatorService } from './auth-validator.service';
 
-@Injectable()
-export class AuthService  implements  IAuthService {
+@Injectable() export class AuthService  implements  IAuthService {
     constructor(
         @Inject(USERS_REPOSITORY) private usersRepository: IUsersRepository,
         @Inject(USERS_MAPPER) private usersMapper: IUsersMapper,
+        @Inject(AUTH_VALIDATOR_SERVICE) private authValidatorService: AuthValidatorService ,
         private jwtService: JwtService
     ) {}
-
-    private validateUser = async (user: IUser, password: string): Promise<void> => {
-        if (!user && !await bcrypt.compare(password, user.password)) {
-            throw new UnauthorizedException('Credentials are incorrect!');
-        }
-    };
     public signIn = async (authCredentialDto: AuthCredentialsDto): Promise<AuthSignInDto> => {
         const user: IUser = await this.usersRepository.findByEmail(authCredentialDto.email);
-        await this.validateUser(user, authCredentialDto.password);
+        await this.authValidatorService.validatePassword(user, authCredentialDto.password);
         const userDto: UserDto = this.usersMapper.mapToDto(user);
         const payload = { id: userDto.id };
         const accessToken = await this.jwtService.sign(payload);
         return { user: userDto, accessToken };
     };
 
-    signUp(authCredentialDto: AuthCredentialsDto): Promise<AuthSignInDto> {
-        return Promise.resolve(undefined);
+    public signUp = async (authCredentialDto: AuthSignUpDto): Promise<AuthSignInDto> => {
+        const user: IUser = await this.usersRepository.findByEmail(authCredentialDto.email);
+        this.authValidatorService.isUserExists(user);
+        const SALT_LENGTH = 10;
+        const salt = await bcrypt.genSalt(SALT_LENGTH);
+        const password =  await bcrypt.hash(authCredentialDto.password, salt);
+        const createdUser: IUser = await this.usersRepository.create({...authCredentialDto, password});
+        const userDto: UserDto = this.usersMapper.mapToDto(createdUser);
+        const payload = { id: userDto.id };
+        const accessToken = await this.jwtService.sign(payload);
+        return { user: userDto, accessToken };
     }
 }
