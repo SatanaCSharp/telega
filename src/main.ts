@@ -1,14 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
-
+import { NestExpressApplication } from '@nestjs/platform-express';
+const PORT: number = Number(process.env.PORT) || 5000;
+const PREFIX = process.env.PREFIX || '/api/v1';
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
-  app.setGlobalPrefix('/api/v1');
-  await app.listen(5000);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.setGlobalPrefix(PREFIX);
+  app.enableCors();
+  await app.listen(PORT);
 }
 
 bootstrap();

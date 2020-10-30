@@ -1,23 +1,19 @@
+const dotenv = require('dotenv')
+dotenv.config();
+console.log('db.config: ', process.env.DB_HOST)
 module.exports =  {
   development: {
-    username: 'root',
-    password: '1Swat741852963',
-    database: 'telega',
-    host: '127.0.0.1',
-    dialect: 'mysql'
-  },
-  test: {
-    username: 'root',
-    password: null,
-    database: 'database_test',
-    host: '127.0.0.1',
-    dialect: 'mysql'
+    host: process.env.DB_HOST,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    dialect: process.env.DB_DIALECT
   },
   production: {
-    username: 'root',
-    password: null,
-    database: 'database_production',
-    host: '127.0.0.1',
-    dialect: 'mysql'
+    host: process.env.DB_HOST,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    dialect: process.env.DB_DIALECT
   }
 }
