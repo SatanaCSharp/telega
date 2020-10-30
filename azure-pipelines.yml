@@ -1,3 +1,6 @@
+trigger:
+  - main
+
 pool:
   vmImage: 'ubuntu-18.04'
 steps:
@@ -13,8 +16,8 @@ steps:
       npm i -g pm2
     displayName: 'Install Global Packages'
 
-  - script: sequelie db:migrate --env=stage
-    displayName: 'Install Global Packages'
+  - script: yarn db:migrate:prod
+    displayName: 'Run migrations'
 
   - script: |
       yarn build
