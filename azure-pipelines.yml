@@ -1,0 +1,23 @@
+pool:
+  vmImage: 'ubuntu-18.04'
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '12.x'
+    displayName: 'Install Node'
+  
+  - script: |
+      npm i -g typescript
+      npm i -g sequelize-cli
+      npm i -g @nestjs/cli
+      npm i -g pm2
+    displayName: 'Install Global Packages'
+
+  - script: sequelie db:migrate --env=stage
+    displayName: 'Install Global Packages'
+
+  - script: |
+      yarn build
+      cd client/ &&  yarn build
+    displayName: 'Build static'
+
