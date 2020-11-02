@@ -32,7 +32,7 @@ jobs:
         yarn install
         yarn build
         cd build
-        zip -r static.zip
+        zip -r static.zip .
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.0
       with:
