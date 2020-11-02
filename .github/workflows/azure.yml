@@ -27,7 +27,7 @@ jobs:
     - name: Install modules
       run: |
         sudo apt-get update
-        sudo apt-get install install zip
+        sudo apt-get install zip
         cd client
         yarn install
         yarn build
