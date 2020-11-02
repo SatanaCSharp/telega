@@ -63,6 +63,10 @@ jobs:
         path: client/build/static.zip
       
     - name: Deploy to production
-      run: |
-         cat ./deploy.sh | ssh ${{secrets.VM_USER}}@${{secrets.AZURE_VM_IP}} sh -s production
+      uses: fifsky/ssh-action@master
+      with: 
+        command: |
+          cat ./deploy.sh | sh -s production
+        host: ${{ secrets.AZURE_VM_IP }}
+        user: ${{ secrets.VM_USER }}
       
