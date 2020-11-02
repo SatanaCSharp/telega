@@ -54,6 +54,8 @@ jobs:
     runs-on: ubuntu-16.04
     needs: build
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: Download a Build Artifact
       uses: actions/download-artifact@v2.0.5
       with:
@@ -62,6 +64,5 @@ jobs:
       
     - name: Deploy to production
       run: |
-         cd telega
          cat ./deploy.sh | ssh ${{secrets.VM_USER}}@${{secrets.AZURE_VM_IP}} sh -s production
       
