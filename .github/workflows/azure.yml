@@ -69,4 +69,5 @@ jobs:
           cat ./deploy.sh | sh -s production
         host: ${{ secrets.AZURE_VM_IP }}
         user: ${{ secrets.VM_USER }}
+        key: ${{secrets.PRIVATE_SSH}}
       
