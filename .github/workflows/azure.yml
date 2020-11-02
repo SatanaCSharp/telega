@@ -62,6 +62,6 @@ jobs:
       
     - name: Deploy to production
       run: |
-         ls -la
+         cd telega
          cat ./deploy.sh | ssh ${{secrets.VM_USER}}@${{secrets.AZURE_VM_IP}} sh -s production
       
