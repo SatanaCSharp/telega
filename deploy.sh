@@ -26,7 +26,7 @@ git pull origin ${BRANCH}
 check_error
 
 echo "Copying env file"
-cp /home/kirani/telega-ads/.env /home/${MAIN_DIR}/
+cp /home/kirani/telega-ads/.env /home/kirani/${MAIN_DIR}/
 check_error
 echo "Remove old static server build"
 rm -rf /home/telega/dist/*
