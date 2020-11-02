@@ -13,9 +13,24 @@ env:
   LOCAL_PATH: 'client/dist/static.zip'
 
 jobs:
+  test_ssh:
+    name: Test SSH
+    runs-on: ubuntu-16.04
+    needs: build
+    steps:
+    - name: Connect to ssh and execute ls -la
+      uses: fifsky/ssh-action@master
+      with: 
+        command: |
+          ls -la
+        host: ${{ secrets.AZURE_VM_IP }}
+        user: ${{ secrets.VM_USER }}
+        key: ${{secrets.PRIVATE_SSH}}
+      
   build:
     name: Build
     runs-on: ubuntu-16.04
+    needs: test_ssh
     steps:
     - name: Checkout
       uses: actions/checkout@v2
