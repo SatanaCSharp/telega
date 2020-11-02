@@ -1,0 +1,54 @@
+
+on:
+  pull_request:
+    branches:
+    - main
+  push:
+    branches:
+    - main
+
+env:
+  NODE_VERSION: '12.x'
+  REMOTE_PATH: '/home/kirani/client/'
+  LOCAL_PATH: 'client/dist/static.zip'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-16.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+    
+    - name: Install modules
+      run: |
+        sudo apt-get update
+        sudo apt-get install zip
+        cd client
+        yarn install
+        yarn build
+        cd build
+        zip -r static.zip
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        name: Client Static
+        path: client/build/static.zip
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-16.04
+    steps:
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v2.0.5
+      with:
+        name: Client Static
+        path: client/build/static.zip
+      
+    - name: Deploy to production
+      run: |
+         cat ./deploy.sh | ssh '${{secrets.VM_USER}}'@'${{secrets.AZURE_VM_IP}}' sh -s production
+      
