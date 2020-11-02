@@ -16,7 +16,6 @@ jobs:
   test_ssh:
     name: Test SSH
     runs-on: ubuntu-16.04
-    needs: build
     steps:
     - name: Connect to ssh and execute ls -la
       uses: fifsky/ssh-action@master
