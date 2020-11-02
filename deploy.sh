@@ -19,17 +19,17 @@ fi
 cd ${MAIN_DIR} || exit
 echo "Stopping pm2 instance"
 pm2 stop all
-echo "Deleting pm2 instance"
-pm2 delete Telega
+#echo "Deleting pm2 instance"
+#pm2 delete Telega
 echo "Pulling repo"
 git pull origin ${BRANCH}
 check_error
 
 echo "Copying env file"
-cp /home/kirani/telega-ads/.env /home/telega-telega-ads/${MAIN_DIR}/
+cp /home/kirani/telega-ads/.env /home/${MAIN_DIR}/
 check_error
 echo "Remove old static server build"
-rm -rf /home/telega-ads/telega/dist/*
+rm -rf /home/telega/dist/*
 echo "Installing sever dependencies"
 yarn install
 yarn build
@@ -38,9 +38,9 @@ echo "Executing migrations"
 yarn db:migrate --env production
 check_error
 echo "Remove old static build"
-rm -rf /home/kirani/telega-ads/telega/client/build/*
-unzip /home/kirani/telega-ads/telega/client/static.zip -d /home/kirani/telega-ads/telega/client/build/
-rm -rf /home/kirani/telega-ads/telega/client/static.zip
+rm -rf /home/kirani/telega/client/build/*
+unzip /home/kirani/telega/client/static.zip -d /home/kirani/telega/client/build/
+rm -rf /home/kirani/telega/client/static.zip
 echo "Starting pm2 instance"
 pm2 start pm2.config.json --env "${ENV}"
 check_error
