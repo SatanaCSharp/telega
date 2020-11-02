@@ -20,7 +20,7 @@ cd ${MAIN_DIR} || exit
 echo "Stopping pm2 instance"
 pm2 stop all
 echo "Deleting pm2 instance"
-pm2 delete TTM
+pm2 delete Telega
 echo "Pulling repo"
 git pull origin ${BRANCH}
 check_error
@@ -42,7 +42,7 @@ rm -rf /home/kirani/telega-ads/telega/client/build/*
 unzip /home/kirani/telega-ads/telega/client/static.zip -d /home/kirani/telega-ads/telega/client/build/
 rm -rf /home/kirani/telega-ads/telega/client/static.zip
 echo "Starting pm2 instance"
-pm2 start ecosystem.config.js --env "${ENV}"
+pm2 start pm2.config.json --env "${ENV}"
 check_error
 echo "Deploy script finished"
 exit 0
