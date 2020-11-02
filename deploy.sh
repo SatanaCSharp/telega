@@ -35,7 +35,7 @@ yarn install
 yarn build
 check_error
 echo "Executing migrations"
-yarn db:migrate --env production
+yarn db:migrate:prod
 check_error
 echo "Remove old static build"
 rm -rf /home/kirani/telega/client/build/*
