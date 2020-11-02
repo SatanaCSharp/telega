@@ -41,7 +41,7 @@ jobs:
     
     - name: Create Archive
       run: | 
-        cd build
+        cd client/build
         zip -r static.zip .    
     
     - name: Upload a Build Artifact
