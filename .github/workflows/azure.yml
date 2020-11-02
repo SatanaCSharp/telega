@@ -35,7 +35,9 @@ jobs:
         yarn install
     
     - name: Build Client
-      run: yarn build
+      run: |
+        cd client
+        yarn build
     
     - name: Create Archive
       run: | 
