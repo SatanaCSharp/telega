@@ -24,15 +24,24 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
     
-    - name: Install modules
+    - name: Install System Packages
       run: |
         sudo apt-get update
-        sudo apt-get install zip
+        sudo apt-get install zip   
+    
+    - name: Install Client Modules
+      run: |
         cd client
         yarn install
-        yarn build
+    
+    - name: Build Client
+      run: yarn build
+    
+    - name: Create Archive
+      run: | 
         cd build
-        zip -r static.zip .
+        zip -r static.zip .    
+    
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.0
       with:
@@ -51,5 +60,6 @@ jobs:
       
     - name: Deploy to production
       run: |
-         cat ./deploy.sh | ssh '${{secrets.VM_USER}}'@'${{secrets.AZURE_VM_IP}}' sh -s production
+         ls -la
+         cat ./deploy.sh | ssh ${{secrets.VM_USER}}@${{secrets.AZURE_VM_IP}} sh -s production
       
