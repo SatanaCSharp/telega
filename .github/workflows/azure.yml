@@ -41,6 +41,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-16.04
+    needs: build
     steps:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v2.0.5
