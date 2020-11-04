@@ -59,6 +59,7 @@ jobs:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v2.0.5
       with:
+        command: ls -la
         name: Client Static
         path: client/build/static.zip
 
