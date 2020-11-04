@@ -61,7 +61,9 @@ jobs:
       with:
         name: Client Static
         path: client/build/static.zip
-      
+    - name: Show Directories
+        run: |
+          ls -la
     - name: Deploy to production
       uses: fifsky/ssh-action@master
       with: 
