@@ -9,8 +9,6 @@ on:
 
 env:
   NODE_VERSION: '12.x'
-  REMOTE_PATH: '/home/kirani/client/'
-  LOCAL_PATH: 'client/dist/static.zip'
 
 jobs:
   build:
@@ -59,12 +57,15 @@ jobs:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v2.0.5
       with:
-        command: ls -la
         name: Client Static
         path: client/build/static.zip
 
     - name: Show Directories
-      run: ls -la
+      run: |
+        cd ../
+        ls -la
+        cd ../
+        ls -la
 
     - name: Deploy to production
       uses: fifsky/ssh-action@master
