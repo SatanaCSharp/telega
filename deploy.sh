@@ -29,7 +29,7 @@ echo "Copying env file"
 cp /home/kirani/telega-ads/.env /home/kirani/${MAIN_DIR}/
 check_error
 echo "Remove old static server build"
-rm -rf /home/telega/dist/*
+rm -rf /home/kirani/telega/dist/*
 echo "Installing sever dependencies"
 yarn install
 yarn build
@@ -39,8 +39,12 @@ yarn db:migrate:prod
 check_error
 echo "Remove old static build"
 rm -rf /home/kirani/telega/client/build/*
-unzip /home/kirani/telega/client/static.zip -d /home/kirani/telega/client/build/
-rm -rf /home/kirani/telega/client/static.zip
+cd client || exit
+yarn install
+yarn build
+cd ../
+#unzip /home/kirani/telega/client/static.zip -d /home/kirani/telega/client/build/
+#rm -rf /home/kirani/telega/client/static.zip
 echo "Starting pm2 instance"
 pm2 start pm2.config.json --env "${ENV}"
 check_error

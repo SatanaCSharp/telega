@@ -54,18 +54,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+
     - name: Download a Build Artifact
       uses: actions/download-artifact@v2.0.5
       with:
         name: Client Static
         path: client/build/static.zip
-
-    - name: Show Directories
-      run: |
-        cd ../
-        ls -la
-        cd ../
-        ls -la
 
     - name: Deploy to production
       uses: fifsky/ssh-action@master
