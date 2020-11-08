@@ -7,6 +7,7 @@ import { UsersMapper } from './users.mapper';
 import { UsersController } from './users.controller';
 import { USERS_MAPPER, USERS_REPOSITORY, USERS_SERVICE } from '../common/di.constants';
 
+
 @Module({
     imports: [
         SequelizeModule.forFeature([User]),

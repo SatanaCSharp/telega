@@ -13,7 +13,7 @@ import { USERS_MAPPER, USERS_REPOSITORY } from '../common/di.constants';
 @Injectable()
 export class UsersService extends BaseService<
     IUser,
-    CreateUserDto ,
+    CreateUserDto,
     UpdateUserDto,
     UserDto,
     IUsersRepository,

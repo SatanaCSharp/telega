@@ -1,6 +1,6 @@
 import { UserDto } from '../../users/dto/user.dto';
 
 export class AuthSignInDto {
-    user: UserDto;
+    user: Partial<UserDto>;
     accessToken: string;
 }

@@ -8,4 +8,6 @@ export class User extends Model<User> implements IUser {
     @Column email: string;
     @Column password: string;
     @Column phone: number;
+    @Column telegramId: number;
+    @Column telegramUserName: string;
 }

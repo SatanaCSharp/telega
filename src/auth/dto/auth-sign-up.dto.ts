@@ -1,8 +1,8 @@
 import { AuthCredentialsDto } from './auth-creadential.dto';
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString, Length, Max, Min } from 'class-validator';
 
 export class AuthSignUpDto extends AuthCredentialsDto {
-    @IsString() firstName: string;
-    @IsString() lastName: string;
-    @IsNumber() phone: number;
+    @IsString() @Length(2, 200) firstName: string;
+    @IsString() @Length(2, 200) lastName: string;
+    @IsNumber() @Min(12) @Max(12) phone: number;
 }

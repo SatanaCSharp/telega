@@ -5,4 +5,6 @@ export interface IUser {
      email: string;
      phone: number;
      password: string;
+     telegramId: number;
+     telegramUserName: string;
 }
