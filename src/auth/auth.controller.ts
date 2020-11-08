@@ -1,20 +1,34 @@
 import { Body, Controller, Inject, Post, ValidationPipe } from '@nestjs/common';
 import { AuthCredentialsDto } from './dto/auth-creadential.dto';
 import { AuthSignInDto } from './dto/auth-sign-in.dto';
-import { AUTH_SERVICE } from '../common/constants/services.constants';
-import { IAuthService } from './interfaces/iauth.service';
 import { AuthSignUpDto } from './dto/auth-sign-up.dto';
+import { AUTH_CREDENTIALS_SERVICE, AUTH_TELEGRAM_SERVICE } from '../common/di.constants';
+import { IAuthCredentialsService } from './interfaces/iauth-credentials.service';
+import { IAuthTelegramService } from './interfaces/iauth-telegram.service';
+import { AuthTelegramDto } from './dto/auth-telegram.dto';
+import { AuthTelegramSignInDto } from './dto/auth-telegram-sign-in.dto';
 
 @Controller('auth')
 export class AuthController {
-    constructor(@Inject(AUTH_SERVICE) private authService: IAuthService) {}
+    constructor(
+        @Inject(AUTH_CREDENTIALS_SERVICE) private authCredentialsService: IAuthCredentialsService,
+        @Inject(AUTH_TELEGRAM_SERVICE) private authTelegramService: IAuthTelegramService
+    ) {}
 
     @Post('/sign-in')
     public async signIn(@Body(ValidationPipe) authCredentialDto: AuthCredentialsDto): Promise<AuthSignInDto> {
-        return this.authService.signIn(authCredentialDto);
+        return this.authCredentialsService.signIn(authCredentialDto);
     }
     @Post('/sign-up')
     public async signUp(@Body(ValidationPipe) authCredentialDto: AuthSignUpDto): Promise<AuthSignInDto> {
-        return this.authService.signUp(authCredentialDto);
+        return this.authCredentialsService.signUp(authCredentialDto);
+    }
+    @Post('/telegram-sign-in')
+    public async telegramSignIn(@Body(ValidationPipe) authCredentialDto: AuthTelegramSignInDto): Promise<AuthSignInDto> {
+        return this.authTelegramService.signIn(authCredentialDto);
+    }
+    @Post('/telegram-sign-up')
+    public async telegramSignUp(@Body(ValidationPipe) authCredentialDto: AuthTelegramDto): Promise<AuthSignInDto> {
+        return this.authTelegramService.signUp(authCredentialDto);
     }
 }

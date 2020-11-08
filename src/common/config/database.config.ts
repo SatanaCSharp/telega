@@ -3,7 +3,6 @@ import { Dialect } from 'sequelize';
 import { User } from '../../users/users.model';
 import * as dotenv from 'dotenv';
 dotenv.config();
-console.log('db.config > process.env.DB_HOST: ', process.env.DB_HOST)
 export const mySqlConfig: SequelizeModuleOptions = {
     dialect: process.env.DB_DIALECT as Dialect,
     host: process.env.DB_HOST,

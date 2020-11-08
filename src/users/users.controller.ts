@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Inject, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { USERS_SERVICE } from '../common/constants/services.constants';
 import { IUsersService } from './interfaces/iusers.service';
 import { UserDto } from './dto/user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { USERS_SERVICE } from '../common/di.constants';
 
 @Controller('users')
 export class UsersController {

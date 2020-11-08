@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './users.model';
-import { USERS_REPOSITORY } from '../common/constants/repositories.constants';
-import { USERS_SERVICE } from '../common/constants/services.constants';
 import { UsersRepository } from './users.repository';
 import { UsersService } from './users.service';
-import { USERS_MAPPER } from '../common/constants/mappers.constants';
 import { UsersMapper } from './users.mapper';
 import { UsersController } from './users.controller';
+import { USERS_MAPPER, USERS_REPOSITORY, USERS_SERVICE } from '../common/di.constants';
+
 
 @Module({
     imports: [

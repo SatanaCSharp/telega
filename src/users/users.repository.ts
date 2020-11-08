@@ -9,7 +9,9 @@ import { BaseRepository } from '../common/base.repository';
 
 @Injectable()
 export class UsersRepository extends BaseRepository<IUser, CreateUserDto, UpdateUserDto> implements IUsersRepository {
-    constructor(@InjectModel(User) private userModel: typeof User) {
+    constructor(
+        @InjectModel(User) private userModel: typeof User
+    ) {
         super(userModel)
     }
 
