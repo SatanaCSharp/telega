@@ -7,7 +7,7 @@ export class User extends Model<User> implements IUser {
     @Column lastName: string;
     @Column email: string;
     @Column password: string;
-    @Column phone: number;
+    @Column phone: string;
     @Column telegramId: number;
     @Column telegramUserName: string;
 }

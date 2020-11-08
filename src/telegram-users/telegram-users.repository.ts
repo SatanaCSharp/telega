@@ -18,7 +18,7 @@ export class TelegramUsersRepository extends
     public findByTelegramId(telegramId: number): Promise<Partial<IUser> | null> {
         return this.userModel.findOne({ where: { telegramId } });
     }
-    public findByPhone(phone: number): Promise<IUser | null> {
+    public findByPhone(phone: string): Promise<IUser | null> {
         return this.userModel.findOne({ where: { phone } });
     }
 }

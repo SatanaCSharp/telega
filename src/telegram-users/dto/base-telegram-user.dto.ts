@@ -1,6 +1,6 @@
 export class BaseTelegramUserDto {
     public firstName: string;
-    public phone: number;
+    public phone: string;
     public telegramId: number;
     public telegramUserName: string;
 }

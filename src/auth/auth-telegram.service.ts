@@ -10,6 +10,7 @@ import { IUser } from '../users/interfaces/iuser';
 import { AuthValidatorService } from './auth-validator.service';
 import { JwtService } from '@nestjs/jwt';
 import { AuthSignInDto } from './dto/auth-sign-in.dto';
+import { AuthTelegramSignInDto } from './dto/auth-telegram-sign-in.dto';
 
 @Injectable()
 export class AuthTelegramService implements IAuthTelegramService {
@@ -20,8 +21,8 @@ export class AuthTelegramService implements IAuthTelegramService {
         private jwtService: JwtService
     ) {
     }
-    public signIn = async (telegramId: number): Promise<AuthSignInDto> => {
-        const user: Partial<IUser> = await this.telegramUsersRepository.findByTelegramId(telegramId);
+    public signIn = async (authCredentialDto: AuthTelegramSignInDto): Promise<AuthSignInDto> => {
+        const user: Partial<IUser> = await this.telegramUsersRepository.findByTelegramId(authCredentialDto.telegramId);
         this.authValidatorService.checkIfUserExists(user);
         const userDto: TelegramUserDto = this.telegramUsersMapper.mapToDto(user);
         const payload = { id: userDto.id };

@@ -1,8 +1,8 @@
-import { IsInt, IsString, Length, Max, Min } from 'class-validator';
+import { IsInt, IsPhoneNumber, IsString, Length } from 'class-validator';
 
 export class AuthTelegramDto {
      @IsString() @Length(2, 200) firstName: string;
-     @IsInt() @Min(12) @Max(12) phone: number;
+     @IsPhoneNumber('UA') phone: string;
      @IsInt()  telegramId: number;
-     @IsString() @Length(2, 200) telegramUserName: string;
+     telegramUserName: string;
 }

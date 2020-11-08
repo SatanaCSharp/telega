@@ -3,7 +3,7 @@ import { IUser } from '../../users/interfaces/iuser';
 export class TelegramUserDto {
     public id?: number;
     public firstName: string;
-    public phone: number;
+    public phone: string;
     public telegramId: number;
     public telegramUserName: string;
 

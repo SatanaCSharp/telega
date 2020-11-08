@@ -6,6 +6,7 @@ import { AUTH_CREDENTIALS_SERVICE, AUTH_TELEGRAM_SERVICE } from '../common/di.co
 import { IAuthCredentialsService } from './interfaces/iauth-credentials.service';
 import { IAuthTelegramService } from './interfaces/iauth-telegram.service';
 import { AuthTelegramDto } from './dto/auth-telegram.dto';
+import { AuthTelegramSignInDto } from './dto/auth-telegram-sign-in.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -23,8 +24,8 @@ export class AuthController {
         return this.authCredentialsService.signUp(authCredentialDto);
     }
     @Post('/telegram-sign-in')
-    public async telegramSignIn(@Body(ValidationPipe) telegramId: number): Promise<AuthSignInDto> {
-        return this.authTelegramService.signIn(telegramId);
+    public async telegramSignIn(@Body(ValidationPipe) authCredentialDto: AuthTelegramSignInDto): Promise<AuthSignInDto> {
+        return this.authTelegramService.signIn(authCredentialDto);
     }
     @Post('/telegram-sign-up')
     public async telegramSignUp(@Body(ValidationPipe) authCredentialDto: AuthTelegramDto): Promise<AuthSignInDto> {

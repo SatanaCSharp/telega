@@ -5,7 +5,7 @@ export class UserDto {
     public firstName: string;
     public lastName: string;
     public email: string;
-    public phone: number;
+    public phone: string;
     constructor(user: IUser) {
         this.id = user.id;
         this.firstName = user.firstName;
