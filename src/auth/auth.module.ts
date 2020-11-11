@@ -10,6 +10,8 @@ import { AuthValidatorService } from './auth-validator.service';
 import { AUTH_CREDENTIALS_SERVICE, AUTH_TELEGRAM_SERVICE, AUTH_VALIDATOR_SERVICE } from '../common/di.constants';
 import { TelegramUsersModule } from '../telegram-users/telegram-users.module';
 import { AuthTelegramService } from './auth-telegram.service';
+import { AdvertisingProvidersModule } from '../advertising-providers/advertising-providers.module';
+import { ChannelOwnersModule } from '../channel-owners/channel-owners.module';
 
 @Module({
     imports: [
@@ -19,7 +21,9 @@ import { AuthTelegramService } from './auth-telegram.service';
             signOptions: { expiresIn: '3 days' },
         }),
         UsersModule,
-        TelegramUsersModule
+        TelegramUsersModule,
+        AdvertisingProvidersModule,
+        ChannelOwnersModule,
     ],
     controllers: [AuthController],
     providers: [

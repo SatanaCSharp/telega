@@ -1,9 +1,34 @@
 import { Module } from '@nestjs/common';
-import { AdvertisingProvidersService } from './advertising-providers.service';
-import { AdvertisingProvidersController } from './advertising-providers.controller';
+import { ADVERTISING_PROVIDERS_MAPPER, ADVERTISING_PROVIDERS_REPOSITORY } from '../common/di.constants';
+import { AdvertisingProvidersMapper } from './advertising-providers.mapper';
+import { AdvertisingProvidersRepository } from './advertising-providers.repository';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { AdvertisingProvider } from './advertising-providers.model';
 
 @Module({
-  providers: [AdvertisingProvidersService],
-  controllers: [AdvertisingProvidersController]
+    imports: [
+        SequelizeModule.forFeature([AdvertisingProvider]),
+    ],
+    providers: [
+        {
+            provide: ADVERTISING_PROVIDERS_MAPPER,
+            useClass: AdvertisingProvidersMapper,
+        },
+        {
+            provide: ADVERTISING_PROVIDERS_REPOSITORY,
+            useClass: AdvertisingProvidersRepository,
+        },
+    ],
+    exports: [
+        {
+            provide: ADVERTISING_PROVIDERS_MAPPER,
+            useClass: AdvertisingProvidersMapper,
+        },
+        {
+            provide: ADVERTISING_PROVIDERS_REPOSITORY,
+            useClass: AdvertisingProvidersRepository,
+        },
+    ]
 })
-export class AdvertisingProvidersModule {}
+export class AdvertisingProvidersModule {
+}
