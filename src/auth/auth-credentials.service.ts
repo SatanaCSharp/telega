@@ -46,6 +46,7 @@ import { IChannelOwnersRepository } from '../channel-owners/interfaces/ichannel-
     public signUp = async (authCredentialDto: AuthSignUpDto): Promise<AuthSignInDto> => {
         const CONFLICT_PROPERTY_EMAIL = 'email';
         const CONFLICT_PROPERTY_PHONE = 'phone';
+        this.authValidatorService.checkUserIfTypeValid(authCredentialDto.userType);
         const telegramUser: Partial<IUser> = await this.telegramUsersRepository.findByPhone(authCredentialDto.phone);
         this.authValidatorService.checkIfUserAlreadySignedUp(telegramUser, CONFLICT_PROPERTY_PHONE);
         const user: IUser = await this.usersRepository.findByEmail(authCredentialDto.email);
