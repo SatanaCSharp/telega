@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IUser } from '../users/interfaces/iuser';
 import * as bcrypt from 'bcryptjs';
+import { EUser } from '../users/enums/user.enum';
 
 
 @Injectable() export class AuthValidatorService {
@@ -21,6 +22,12 @@ import * as bcrypt from 'bcryptjs';
         const isUser: boolean = Boolean(user);
         if (isUser) {
             throw new HttpException(`User exists with the same ${conflictPropertyName}!`, HttpStatus.CONFLICT);
+        }
+    }
+
+    public checkUserIfTypeValid(userType: string) {
+        if (userType !== EUser.advertisingProvider && userType !== EUser.channelOwner) {
+            throw new HttpException('User type specified incorrectly!', HttpStatus.CONFLICT);
         }
     }
 }

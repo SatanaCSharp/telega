@@ -1,8 +1,8 @@
 import { IBaseAuthService } from './ibase-auth.service';
-import { CreateTelegramUserDto } from '../../telegram-users/dto/create-telegram-user.dto';
 import { AuthSignInDto } from '../dto/auth-sign-in.dto';
 import { AuthTelegramSignInDto } from '../dto/auth-telegram-sign-in.dto';
+import { AuthTelegramSignUpDto } from '../dto/auth-telegram-sign-up.dto';
 
-export interface IAuthTelegramService extends IBaseAuthService<CreateTelegramUserDto | AuthTelegramSignInDto, AuthSignInDto> {
+export interface IAuthTelegramService extends IBaseAuthService<AuthTelegramSignUpDto | AuthTelegramSignInDto, AuthSignInDto> {
     signIn(authCredentialDto: AuthTelegramSignInDto): Promise<AuthSignInDto>;
 }

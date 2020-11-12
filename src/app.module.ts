@@ -8,7 +8,7 @@ import { UsersModule } from './users/users.module';
   imports: [
       SequelizeModule.forRoot(mySqlConfig),
       UsersModule,
-      AuthModule,
+      AuthModule
   ],
 })
 export class AppModule {}

@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Jhon\",\n    \"lastName\": \"Doe\",\n    \"phone\": \"+380505119076\",\n    \"email\": \"jhon.doe@gm.com\",\n    \"password\": \"123123\"\n\n}"
+							"raw": "{\n    \"firstName\": \"Jhon\",\n    \"lastName\": \"Doe\",\n    \"phone\": \"+380505119076\",\n    \"email\": \"jhon.doe@gm.com\",\n    \"password\": \"123123\",\n    \"userType\": \"AdvertisingProvider\"\n\n}"
 						},
 						"url": {
 							"raw": "http://localhost:5000/api/v1/auth/sign-up",
@@ -79,7 +79,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Ahriman\",\n    \"phone\": \"+380505119075\",\n    \"telegramId\": 1203596232\n}",
+							"raw": "{\n    \"firstName\": \"Ahriman\",\n    \"phone\": \"+380505119075\",\n    \"telegramId\": 1203596232,\n    \"userType\": \"ChannelOwner\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
