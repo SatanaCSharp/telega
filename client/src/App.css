@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 100%;
 }
 
 .App-logo {
@@ -21,12 +22,17 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #de9c76;
+  color: white;
 }
 
 .App-link {
-  color: #7b4dab;
+  color: #61dafb;
 }
+
+.ant-layout-header {
+  padding: 0 ! important;
+}
+
 
 @keyframes App-logo-spin {
   from {

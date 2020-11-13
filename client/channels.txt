@@ -1,0 +1,22 @@
+{_: "user", flags: 33555571, self: true, contact: false, mutual_contact: false, deleted: false,…}
+access_hash: "12115958475661393841"
+bot: false
+bot_chat_history: false
+bot_inline_geo: false
+bot_nochats: false
+contact: false
+deleted: false
+first_name: "Ahriman"+
+flags: 33555571
+id: 1203596232+
+min: false
+mutual_contact: false
+phone: "380505119075"+
+photo: {_: "userProfilePhoto", photo_id: "5470058417222692724",…}+
+restricted: false
+scam: false
+self: true
+status: {_: "userStatusOffline", was_online: 1604485077}
+support: false
+verified: false
+_: "user"
