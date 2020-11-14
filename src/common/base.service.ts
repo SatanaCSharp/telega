@@ -1,62 +1,49 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { BaseRepository } from './base.repository';
-import { DBEntitiesToDtoMapper, DBEntityToDtoMapper } from './base.interfaces/db-entity.mapper';
+import { Repository } from 'sequelize-typescript';
 
-export abstract class BaseService<
-    DatabaseEntity,
-    CreateDto,
-    UpdateDto,
-    ResponseDto,
-    Repository extends Partial<BaseRepository<DatabaseEntity, CreateDto, UpdateDto>>,
-    Mapper extends DBEntityToDtoMapper<DatabaseEntity, ResponseDto> & DBEntitiesToDtoMapper<DatabaseEntity, ResponseDto>,
-    > {
+export abstract class BaseService<Dto, DatabaseEntity> {
     protected constructor(
-        private repository: Repository,
-        private mapper: Mapper,
+        private repository: Repository<any>,
     ) {}
 
-    public findAll = async (): Promise<ResponseDto[]> => {
+    public findAll = async (): Promise<DatabaseEntity[]> => {
         try {
-            const entities: DatabaseEntity[] = await this.repository.findAll();
-            return this.mapper.mapToDtos(entities);
+            return await this.repository.findAll();
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public findById = async (id: number): Promise<ResponseDto> => {
+    public findById = async (id: number): Promise<DatabaseEntity> => {
         try {
-            const entity: DatabaseEntity = await this.repository.findById(id);
-            return this.mapper.mapToDto(entity);
+           return await this.repository.findByPk(id);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public create = async (createDto: CreateDto & typeof Object): Promise<ResponseDto> => {
+    public create = async (createDto: Readonly<Dto>): Promise<DatabaseEntity> => {
         try {
-            const entity: DatabaseEntity = await this.repository.create(createDto);
-            return this.mapper.mapToDto(entity);
+            return await this.repository.create(createDto);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     };
 
-    public update = async (id: number, updateDto: UpdateDto & typeof Object): Promise<ResponseDto> => {
+    public update = async (id: number, updateDto: Readonly<Dto>): Promise<DatabaseEntity> => {
         try {
-            await this.repository.update(id, updateDto);
-            const entity: DatabaseEntity = await this.repository.findById(id);
-            return this.mapper.mapToDto(entity);
+            await this.repository.update(updateDto, { where: { id } });
+            return await this.repository.findByPk(id);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     };
 
-    public delete = async (id: number): Promise<ResponseDto> => {
+    public delete = async (id: number): Promise<DatabaseEntity> => {
         try {
-            const entity: DatabaseEntity = await this.repository.findById(id);
-            await this.repository.delete(id);
-            return this.mapper.mapToDto(entity);
+            const entity: DatabaseEntity = await this.repository.findByPk(id);
+            await this.repository.destroy({ where: { id } });
+            return entity;
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }

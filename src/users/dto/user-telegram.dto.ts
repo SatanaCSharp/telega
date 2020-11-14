@@ -1,6 +1,6 @@
-import { IUser } from '../../users/interfaces/iuser';
+import { IUser } from '../interfaces/iuser';
 
-export class TelegramUserDto {
+export class UserTelegramDto {
     public id?: number;
     public firstName: string;
     public phone: string;

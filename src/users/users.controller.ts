@@ -1,14 +1,11 @@
-import { Body, Controller, Get, Inject, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { IUsersService } from './interfaces/iusers.service';
+import { Body, Controller, Get, Inject, Param, Put, UseGuards } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { USERS_SERVICE } from '../common/di.constants';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-    constructor(@Inject(USERS_SERVICE) private usersService: IUsersService) {}
+    constructor(@Inject(UsersService) private usersService: UsersService) {}
 
     @UseGuards(AuthGuard('jwt'))
     @Get('/:id')
@@ -17,14 +14,8 @@ export class UsersController {
     }
 
     @UseGuards(AuthGuard('jwt'))
-    @Post()
-    public async create(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
-        return this.usersService.create(createUserDto);
-    }
-
-    @UseGuards(AuthGuard('jwt'))
     @Put('/:id')
-    public async update(@Param() params, @Body() updateUserDto: UpdateUserDto): Promise<UserDto> {
+    public async update(@Param() params, @Body() updateUserDto: UserDto): Promise<UserDto> {
         return this.usersService.update(params.id, updateUserDto);
     }
 }
