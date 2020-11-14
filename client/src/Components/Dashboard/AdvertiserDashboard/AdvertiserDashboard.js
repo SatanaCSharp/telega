@@ -3,15 +3,9 @@ import { Menu } from 'antd';
 const  { Item } = Menu; 
 
 export default function AdvertiserDashboard (props) {
-    const [current, setCurrent] = useState('');
-    
     const handleClick = () => {
-
+        
     }
-
-    useEffect(() => {
-
-    }, [])
 
     return (
         <div>

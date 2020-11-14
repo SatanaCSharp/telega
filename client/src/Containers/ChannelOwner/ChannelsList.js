@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
 import ChannelsList from '../../Components/Dashboard/ChannelsList/ChannelsList';
 import getChannels from '../../Helpers/Users/GetFullChannel';
-import AddBot from '../../Helpers/Users/AddBotToChannel';
-import { GET_CHANNELS } from '../../Constants/Channels';
 
 const mapStateToProps = (state) => ({
     channels: state.channels

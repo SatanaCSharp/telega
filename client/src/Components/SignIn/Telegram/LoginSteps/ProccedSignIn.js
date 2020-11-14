@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import { Input } from 'antd';
 import Client from '../../../../Controllers/TelegramController';
 import Alert from '../../../Common/Alert';
@@ -16,7 +16,7 @@ export default function GetSecurityCode (props) {
 
     const handleInput = async (e) => {
         const { value } = e.target;
-        if(value.length == 5) {
+        if(value.length === 5) {
             try {
                 const { user } = await signIn({
                     code: value,
