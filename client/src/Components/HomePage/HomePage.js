@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import GetFullChannel from '../../Helpers/Users/GetFullChannel';
+import React from 'react';
 
 export default function HomePage (props) {
     

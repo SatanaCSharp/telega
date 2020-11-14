@@ -26,7 +26,7 @@ const style = {
 }
 
 export default function PostToChannel (props) {
-    const { modal, setModal, channel } = props;
+    const { setModal, channel } = props;
     const textArea = useRef('');
     
     const makePost = ({ username }, {current:{ state: {value}}}) => {
