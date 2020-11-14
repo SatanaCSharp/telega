@@ -23,13 +23,13 @@ export default function ChannelOwnerDashboard (props) {
         switch (current) {
             case 'list':
                 return <ChannelsList />
-                break;
             case 'stats':
                 return <p>Stats</p>
-                break;
             case 'deals':
                 return <p>Deals</p>
-                break;
+            default: {
+                return <ChannelsList />
+            }
         }
     }
 

@@ -13,8 +13,6 @@ import {
 import HomePage from './Components/HomePage/HomePage';
 import SignIn from './Components/SignIn/SignIn';
 import Dashboard from './Containers/Dashboard/Dashboard';
-import AuthAsBot from './Helpers/Bots/AuthAsBot';
-
 
 const { Header, Footer, Content } = Layout;
 

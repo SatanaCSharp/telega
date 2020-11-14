@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import { Steps, Button, message } from 'antd';
+import React, {useState} from 'react';
+import { Steps } from 'antd';
 import PhoneStep from './LoginSteps/GetUserPhone';
 import CodeStep from './LoginSteps/ProccedSignIn';
-import User from './LoginSteps/UserInformation';
 import UserInformation from './LoginSteps/UserInformation';
 
 const { Step } = Steps;

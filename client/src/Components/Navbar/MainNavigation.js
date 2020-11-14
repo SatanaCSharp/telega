@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import SignIn from '../SignIn/SignIn';
 import UserMode from '../../Containers/Users/UserMode';
 
 const { Item } = Menu;

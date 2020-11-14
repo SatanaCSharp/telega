@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import { Alert } from 'antd';
 
 export default function AlertMessage (props) {
-    const { error, text } = props;
+    const { text } = props;
     return (
         <Fragment> 
             {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Input } from 'antd';
 import Client from '../../../../Controllers/TelegramController';
 import Alert from '../../../Common/Alert';
@@ -19,7 +19,7 @@ export default function GetUserPhone (props) {
         const { value } = e.target
         if (value.length === 13) {
             try {
-                let { phone_code_hash, ...data } = await sendCode(value);
+                let { phone_code_hash } = await sendCode(value);
                 if(phone_code_hash) {
                     props.setPhone(value);
                     props.setHash(phone_code_hash)
