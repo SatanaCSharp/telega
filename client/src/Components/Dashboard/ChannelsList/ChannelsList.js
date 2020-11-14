@@ -21,10 +21,9 @@ const style = {
 export default function ChannelsList (props) {
     const [open, setOpen] = useState(false);
 
-    console.log(props.channels);
     useEffect (() => {
         props.getAllChannels();
-    }, []) 
+    }, [props]) 
         
 
     return (
