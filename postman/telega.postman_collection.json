@@ -136,6 +136,75 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Channels",
+			"item": [
+				{
+					"name": "Get auth user channels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA1NDU4NDMzLCJleHAiOjE2MDU3MTc2MzN9.oImKZBJ-HX4jxqAbeqI_DT5FjBbKxe4RZE2Z7i7VW2Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/channels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"channels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Multi create channels",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA1NDU4NDMzLCJleHAiOjE2MDU3MTc2MzN9.oImKZBJ-HX4jxqAbeqI_DT5FjBbKxe4RZE2Z7i7VW2Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"title\": \"Destrouk\",\n        \"description\": \"lorem\",\n        \"participantsCount\": 500,\n        \"date\": \"2020-10-15T16:47:47.415Z\",\n        \"postsCount\": 10000,\n        \"priceRate\": 124.75\n    },\n    {\n        \"title\": \"Destrouk23\",\n        \"description\": \"lorem\",\n        \"participantsCount\": 700,\n        \"date\": \"2020-10-15T16:47:47.415Z\",\n        \"postsCount\": 10000,\n        \"priceRate\": 124.75\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/channels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"channels"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

@@ -1,6 +1,5 @@
 const dotenv = require('dotenv')
 dotenv.config();
-console.log('db.config: ', process.env.DB_HOST)
 module.exports =  {
   development: {
     host: process.env.DB_HOST,
