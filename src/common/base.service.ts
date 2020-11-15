@@ -29,7 +29,13 @@ export abstract class BaseService<Dto, DatabaseEntity> {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     };
-
+    public createMany = async (createDtos: Readonly<Dto>[]): Promise<DatabaseEntity[]> => {
+        try {
+            return await this.repository.bulkCreate(createDtos, { returning: true });
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     public update = async (id: number, updateDto: Readonly<Dto>): Promise<DatabaseEntity> => {
         try {
             await this.repository.update(updateDto, { where: { id } });
