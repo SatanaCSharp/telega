@@ -5,6 +5,7 @@ import * as dotenv from 'dotenv';
 import { ChannelOwner } from '../../channel-owners/channel-owners.model';
 import { AdvertisingProvider } from '../../advertising-providers/advertising-providers.model';
 import { Channel } from '../../channels/channels.model';
+import { Advertisement } from '../../advertisements/advertisements.model';
 dotenv.config();
 export const mySqlConfig: SequelizeModuleOptions = {
     dialect: process.env.DB_DIALECT as Dialect,
@@ -13,6 +14,6 @@ export const mySqlConfig: SequelizeModuleOptions = {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    models: [User, ChannelOwner, AdvertisingProvider, Channel],
+    models: [User, ChannelOwner, AdvertisingProvider, Channel, Advertisement],
     logging: false
 };
