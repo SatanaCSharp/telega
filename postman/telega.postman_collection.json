@@ -152,7 +152,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/channels",
+							"raw": "http://localhost:5000/api/v1/channels/my",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -161,7 +161,8 @@
 							"path": [
 								"api",
 								"v1",
-								"channels"
+								"channels",
+								"my"
 							]
 						}
 					},
@@ -187,6 +188,27 @@
 								}
 							}
 						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/channels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"channels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all channels",
+					"request": {
+						"method": "GET",
+						"header": [],
 						"url": {
 							"raw": "http://localhost:5000/api/v1/channels",
 							"protocol": "http",
