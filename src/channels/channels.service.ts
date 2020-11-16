@@ -5,6 +5,7 @@ import { IChannel } from './interfaces/ichannel';
 import { InjectModel } from '@nestjs/sequelize';
 import { Channel } from './channels.model';
 import { ChannelOwner } from '../channel-owners/channel-owners.model';
+import { User } from '../users/users.model';
 
 @Injectable()
 export class ChannelsService extends BaseService<ChannelsDto, IChannel> {
@@ -15,16 +16,26 @@ export class ChannelsService extends BaseService<ChannelsDto, IChannel> {
         super(channelModel);
     }
 
+    findAll = async (): Promise<IChannel[]> => {
+        return this.channelModel.findAll({
+            include: [
+                {
+                    model: ChannelOwner,
+                    include: [{ model: User }],
+                }
+            ],
+        });
+    };
     getAuthUserChannels = async (UserId: number): Promise<IChannel[]> => {
-        const channelOwner = await this.channelOwnerModel.findOne({ where: { UserId }});
+        const channelOwner = await this.channelOwnerModel.findOne({ where: { UserId } });
         const ChannelOwnerId = channelOwner.id;
-        return this.channelModel.findAll({where: {ChannelOwnerId}});
-    }
+        return this.channelModel.findAll({ where: { ChannelOwnerId } });
+    };
 
     createChannels = async (UserId: number, dtos: ChannelsDto[]): Promise<IChannel[]> => {
-        const channelOwner = await this.channelOwnerModel.findOne({ where: { UserId }});
+        const channelOwner = await this.channelOwnerModel.findOne({ where: { UserId } });
         const ChannelOwnerId = channelOwner.id;
         const channelDtos: ChannelsDto[] = dtos.map((channelDto) => ({ ...channelDto, ChannelOwnerId }));
         return this.createMany(channelDtos);
-    }
+    };
 }

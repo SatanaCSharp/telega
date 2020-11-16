@@ -8,11 +8,18 @@ import { ChannelsDto } from './dto/channels.dto';
 
 @Controller('channels')
 export class ChannelsController {
-    constructor(@Inject(ChannelsService) private channelService: ChannelsService) {}
+    constructor(@Inject(ChannelsService) private channelService: ChannelsService) {
+    }
+
+    @Get('/')
+    public async getAll(): Promise<ChannelsDto[]> {
+        const channels: IChannel[] = await this.channelService.findAll();
+        return channels.map((channel: IChannel) => new ChannelsDto(channel));
+    }
 
     @UseGuards(AuthGuard('jwt'))
-    @Get('/')
-    public async getAuthUserChannels(@User() { userId }: { userId: number}): Promise<ChannelsDto[]> {
+    @Get('/my')
+    public async getAuthUserChannels(@User() { userId }: { userId: number }): Promise<ChannelsDto[]> {
         const channels: IChannel[] = await this.channelService.getAuthUserChannels(userId);
         return channels.map((channel: IChannel) => new ChannelsDto(channel));
     }
@@ -20,8 +27,8 @@ export class ChannelsController {
     @UseGuards(AuthGuard('jwt'))
     @Post('/')
     public async createChannels(
-        @User() { userId }: { userId: number},
-        @Body(ValidationPipe) channelDtos: CreateChannelsDto[]
+        @User() { userId }: { userId: number },
+        @Body(ValidationPipe) channelDtos: CreateChannelsDto[],
     ): Promise<ChannelsDto[]> {
         const channels: IChannel[] = await this.channelService.createChannels(userId, channelDtos);
         return channels.map((channel: IChannel) => new ChannelsDto(channel));
