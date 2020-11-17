@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom';
 import HomePage from './Components/HomePage/HomePage';
 import SignIn from './Components/SignIn/SignIn';
-import Dashboard from './Containers/Dashboard/Dashboard';
+import Dashboard from './Containers/Dashboards/Dashboard';
 
 const { Header, Footer, Content } = Layout;
 
