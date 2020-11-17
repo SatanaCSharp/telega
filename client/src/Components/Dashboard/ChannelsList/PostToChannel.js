@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Card, Input, Button } from 'antd';
 import SendMessage from '../../../Helpers/Bots/SendMessageToBot';
+import GetMessage from '../../../Helpers/Channels/GetMessageById';
 
 const { TextArea } = Input;
 
@@ -26,16 +27,18 @@ const style = {
 }
 
 export default function PostToChannel (props) {
-    const { setModal, channel } = props;
+    const { open, setModal, channel } = props;
     const textArea = useRef('');
     
     const makePost = ({ username }, {current:{ state: {value}}}) => {
-        SendMessage(username, value).then(res => res.json()).then(res => console.log(res));
+        SendMessage(username, value).then(res => res.json()).then(res => {
+            return GetMessage(channel, res)
+        }).then(res => console.log(res.messages));
     }
 
 
     return (
-        <div style={style.modalBackdrop} onClick={() => setModal(false)}>
+        <div style={style.modalBackdrop} onClick={() => setModal(!open)}>
             <Card title="Post to channel" style={style.modal} onClick={(e) => e.stopPropagation()}>
                 <TextArea rows={4} ref={textArea}/>
                 <Button type="primary" onClick={() => makePost(channel, textArea)}>Post</Button>

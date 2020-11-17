@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu } from 'antd';
-import ChannelsList from '../../../Containers/ChannelOwner/ChannelsList';
+import ChannelsList from '../../../Containers/Dashboards/ChannelOwner/ChannelsList';
 
 const  { Item } = Menu; 
 
