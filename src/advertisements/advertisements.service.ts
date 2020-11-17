@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AdvertisementsDto } from './dto/advertisements.dto';
 import { IAdvertisement } from './interfaces/iadvertisement';
 import { InjectModel } from '@nestjs/sequelize';
@@ -15,30 +15,31 @@ export class AdvertisementsService {
     }
 
     findOne = async (advertisementId: number): Promise<IAdvertisement> => {
-        return this.advertisementModel.findByPk(advertisementId, {
+        const advertisement: IAdvertisement | null = await this.advertisementModel.findOne({
+            where: {
+                id: advertisementId,
+                isPublished: true,
+            },
             include: [
                 {
                     model: AdvertisingProvider,
-                    include: [
-                        {
-                            include: [{ model: User }],
-                        }
-                    ]
+                    include: [{ model: User }],
                 },
             ],
         });
-    }
+        if (!advertisement) {
+            throw new HttpException('Not found advertisement', HttpStatus.NOT_FOUND);
+        }
+        return advertisement;
+    };
 
     findAll = async (): Promise<IAdvertisement[]> => {
         return this.advertisementModel.findAll({
+            where: { isPublished: true },
             include: [
                 {
                     model: AdvertisingProvider,
-                    include: [
-                        {
-                            include: [{ model: User }],
-                        }
-                    ]
+                    include: [{ model: User }],
                 },
             ],
         });
@@ -58,7 +59,7 @@ export class AdvertisementsService {
     updateAdvertisement = async (advertisementId: number, dto: AdvertisementsDto): Promise<IAdvertisement> => {
         await this.advertisementModel.update(dto, { where: { id: advertisementId } });
         return this.advertisementModel.findByPk(advertisementId);
-    }
+    };
 
     publish = async (advertisementId: number): Promise<IAdvertisement> => {
         await this.advertisementModel.update({ isPublished: true }, { where: { id: advertisementId } });
@@ -68,6 +69,9 @@ export class AdvertisementsService {
     unpublish = async (advertisementId: number): Promise<IAdvertisement> => {
         await this.advertisementModel.update({ isPublished: false }, { where: { id: advertisementId } });
         return this.advertisementModel.findByPk(advertisementId);
+    };
+    remove = async (advertisementId: number): Promise<void> => {
+        await this.advertisementModel.destroy({ where: { id: advertisementId } });
     };
 
 }

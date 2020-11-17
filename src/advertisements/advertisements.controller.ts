@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post, Put, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Post, Put, UseGuards, ValidationPipe } from '@nestjs/common';
 import { AdvertisementsService } from './advertisements.service';
 import { AdvertisementsDto } from './dto/advertisements.dto';
 import { IAdvertisement } from './interfaces/iadvertisement';
@@ -16,19 +16,17 @@ export class AdvertisementsController {
         const advertisements: IAdvertisement[] = await this.advertisementsService.findAll();
         return advertisements.map((advertisement: IAdvertisement) => new AdvertisementsDto(advertisement));
     }
-    @Get('/:id')
-    public async getOne(@Param() id: number): Promise<AdvertisementsDto> {
-        const advertisement: IAdvertisement = await this.advertisementsService.findOne(id);
-        return new AdvertisementsDto(advertisement);
-    }
-
     @UseGuards(AuthGuard('jwt'))
     @Get('/my')
     public async getAuthUserChannels(@User() { userId }: { userId: number }): Promise<AdvertisementsDto[]> {
         const advertisements: IAdvertisement[] = await this.advertisementsService.getAuthUserAdvertisements(userId);
         return advertisements.map((advertisement: IAdvertisement) => new AdvertisementsDto(advertisement));
     }
-
+    @Get('/:id')
+    public async getOne(@Param() params): Promise<AdvertisementsDto> {
+        const advertisement: IAdvertisement = await this.advertisementsService.findOne(params.id);
+        return new AdvertisementsDto(advertisement);
+    }
     @UseGuards(AuthGuard('jwt'))
     @Post('/')
     public async createAdvertisement(
@@ -41,23 +39,28 @@ export class AdvertisementsController {
     @UseGuards(AuthGuard('jwt'))
     @Put('/:id')
     public async updateAdvertisement(
-        @Param() id: number,
+        @Param() params,
         @Body(ValidationPipe) advertisementDto: CreateAdvertisementsDto,
     ): Promise<AdvertisementsDto> {
-        const advertisement: IAdvertisement = await this.advertisementsService.createAdvertisement(id, advertisementDto);
+        const advertisement: IAdvertisement = await this.advertisementsService.updateAdvertisement(params.id, advertisementDto);
         return new AdvertisementsDto(advertisement);
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Put('/:id/publish')
-    public async publish(@Param() id: number) {
-        const advertisement: IAdvertisement = await this.advertisementsService.publish(id);
+    public async publish(@Param() params) {
+        const advertisement: IAdvertisement = await this.advertisementsService.publish(params.id);
         return new AdvertisementsDto(advertisement);
     }
     @UseGuards(AuthGuard('jwt'))
     @Put('/:id/unpublish')
-    public async unpublish(@Param() id: number) {
-        const advertisement: IAdvertisement = await this.advertisementsService.unpublish(id);
+    public async unpublish(@Param() params) {
+        const advertisement: IAdvertisement = await this.advertisementsService.unpublish(params.id);
         return new AdvertisementsDto(advertisement);
+    }
+    @UseGuards(AuthGuard('jwt'))
+    @Delete('/:id')
+    public async remove(@Param() params) {
+        await this.advertisementsService.remove(params.id);
     }
 }

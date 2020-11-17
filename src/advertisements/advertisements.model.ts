@@ -8,6 +8,8 @@ export class Advertisement extends Model<Advertisement> implements IAdvertisemen
     @Column description: string;
     @Column image: string;
     @Column isPublished: boolean;
+
+
     @ForeignKey(() => AdvertisingProvider)
     @Column AdvertisingProviderId: number;
 
