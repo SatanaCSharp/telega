@@ -227,6 +227,231 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Advertisement",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1NjQ4MTkwLCJleHAiOjE2MDU5MDczOTB9.MTGb3nUfad4T8I5CnhNfJTHQKp0OY_-dnBJJ0HG8p5Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"local host ads description local host ads description\",\n    \"isPublished\": false,\n    \"image\": \"https://postium.ru/wp-content/uploads/2020/04/eksperimenty-facebook-ads-manager.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/advertisements",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"advertisements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1NjQ4MTkwLCJleHAiOjE2MDU5MDczOTB9.MTGb3nUfad4T8I5CnhNfJTHQKp0OY_-dnBJJ0HG8p5Y",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"description\": \"2222local host ads description local host ads description\",\n     \"isPublished\": false,\n     \"image\": \"https://postium.ru/wp-content/uploads/2020/04/eksperimenty-facebook-ads-manager.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/advertisements/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"advertisements",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/advertisements/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"advertisements",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get auth user advertisements",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1NjQ4MTkwLCJleHAiOjE2MDU5MDczOTB9.MTGb3nUfad4T8I5CnhNfJTHQKp0OY_-dnBJJ0HG8p5Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/advertisements/my",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"advertisements",
+								"my"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish advertisement",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1NjQ4MTkwLCJleHAiOjE2MDU5MDczOTB9.MTGb3nUfad4T8I5CnhNfJTHQKp0OY_-dnBJJ0HG8p5Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/advertisements/1/publish",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"advertisements",
+								"1",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unpublish advertisement",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1NjQ4MTkwLCJleHAiOjE2MDU5MDczOTB9.MTGb3nUfad4T8I5CnhNfJTHQKp0OY_-dnBJJ0HG8p5Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/advertisements/1/unpublish",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"advertisements",
+								"1",
+								"unpublish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1NjQ4MTkwLCJleHAiOjE2MDU5MDczOTB9.MTGb3nUfad4T8I5CnhNfJTHQKp0OY_-dnBJJ0HG8p5Y",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/advertisements/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"advertisements",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
