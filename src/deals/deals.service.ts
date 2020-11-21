@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Deal } from './deals.model';
 import { IDeal } from './interfaces/ideal';
@@ -9,20 +9,46 @@ import { Advertisement } from '../advertisements/advertisements.model';
 import { AdvertisingProvider } from '../advertising-providers/advertising-providers.model';
 import { IAdvertisingProvider } from '../advertising-providers/interfaces/iadvertising-provider';
 import { IChannelOwner } from '../channel-owners/interfaces/ichannel-owner';
-import { EStatuses } from './enums/statuses.enum';
+import { Status } from './enums/statuses.enum';
 import { CreateDealsDto } from './dto/create-deals.dto';
+import { IChannel } from '../channels/interfaces/ichannel';
+import { EUser } from '../users/enums/user.enum';
 
 @Injectable()
 export class DealsService {
     constructor(
         @InjectModel(ChannelOwner) private channelOwnerModel: typeof ChannelOwner,
+        @InjectModel(Channel) private channelModel: typeof Channel,
         @InjectModel(AdvertisingProvider) private advertisingProviderModel: typeof AdvertisingProvider,
         @InjectModel(Deal) private dealsModel: typeof Deal,
-    ) {}
+    ) {
+    }
+    private static isTargetUserTypeExists<TargetUser>(user: TargetUser, userType: EUser) {
+        if (!user) {
+            throw new HttpException(`${userType} is not found.`, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    private getChannelOwnerByUserId = async (UserId: number): Promise<IChannelOwner> => {
+        const channelOwner: IChannelOwner = await this.channelOwnerModel.findOne({ where: { UserId } });
+        DealsService.isTargetUserTypeExists<IChannelOwner>(channelOwner, EUser.channelOwner);
+        return channelOwner;
+    }
+
+    private getAdvertisingProviderByUserId = async (UserId: number): Promise<IChannelOwner> => {
+        const advertisingProvider: IAdvertisingProvider = await this.advertisingProviderModel.findOne({ where: { UserId } });
+        DealsService.isTargetUserTypeExists<IAdvertisingProvider>(advertisingProvider, EUser.advertisingProvider);
+        return advertisingProvider;
+    }
 
     create = async (UserId: number, dto: CreateDealsDto): Promise<IDeal> => {
-        const advertisingProvider: IAdvertisingProvider = await this.advertisingProviderModel.findOne({ where: { UserId } });
-        const deal: IDeal = await this.dealsModel.create({ ...dto, AdvertisingProviderId: advertisingProvider.id });
+        const advertisingProvider: IAdvertisingProvider = await this.getAdvertisingProviderByUserId(UserId);
+        const channel: IChannel = await this.channelModel.findOne({ where: { id: dto.ChannelId } });
+        const deal: IDeal = await this.dealsModel.create({
+            ...dto,
+            AdvertisingProviderId: advertisingProvider.id,
+            ChannelOwnerId: channel.ChannelOwnerId
+        });
         return this.dealsModel.findOne({
             where: { id: deal.id },
             include: [
@@ -34,9 +60,9 @@ export class DealsService {
     };
 
     getAdvertisingProviderPendingDeals = async (UserId: number): Promise<IDeal[]> => {
-        const advertisingProvider: IAdvertisingProvider = await this.advertisingProviderModel.findOne({ where: { UserId } });
+        const advertisingProvider: IAdvertisingProvider = await this.getAdvertisingProviderByUserId(UserId);
         return this.dealsModel.findAll({
-            where: { AdvertisingProvideId: advertisingProvider.id, status: EStatuses.pending },
+            where: { AdvertisingProviderId: advertisingProvider.id, status: Status.pending },
             include: [
                 { model: Advertisement },
                 { model: Channel },
@@ -46,9 +72,9 @@ export class DealsService {
     };
 
     getAdvertisingProviderConfirmedDeals = async (UserId: number): Promise<IDeal[]> => {
-        const advertisingProvider: IAdvertisingProvider = await this.advertisingProviderModel.findOne({ where: { UserId } });
+        const advertisingProvider: IAdvertisingProvider = await this.getAdvertisingProviderByUserId(UserId);
         return this.dealsModel.findAll({
-            where: { AdvertisingProvideId: advertisingProvider.id, status: EStatuses.confirmed },
+            where: { AdvertisingProviderId: advertisingProvider.id, status: Status.confirmed },
             include: [
                 { model: Advertisement },
                 { model: Channel },
@@ -58,9 +84,9 @@ export class DealsService {
     };
 
     getAdvertisingProviderRejectedDeals = async (UserId: number): Promise<IDeal[]> => {
-        const advertisingProvider: IAdvertisingProvider = await this.advertisingProviderModel.findOne({ where: { UserId } });
+        const advertisingProvider: IAdvertisingProvider = await this.getAdvertisingProviderByUserId(UserId);
         return this.dealsModel.findAll({
-            where: { AdvertisingProvideId: advertisingProvider.id, status: EStatuses.rejected },
+            where: { AdvertisingProviderId: advertisingProvider.id, status: Status.rejected },
             include: [
                 { model: Advertisement },
                 { model: Channel },
@@ -71,9 +97,9 @@ export class DealsService {
 
 
     getChannelOwnerPendingDeals = async (UserId): Promise<IDeal[]> => {
-        const channelOwner: IChannelOwner = await this.channelOwnerModel.findOne({ where: { UserId } });
+        const channelOwner: IChannelOwner = await this.getChannelOwnerByUserId(UserId);
         return this.dealsModel.findAll({
-            where: { ChannelOwnerId: channelOwner.id, status: EStatuses.pending },
+            where: { ChannelOwnerId: channelOwner.id, status: Status.pending },
             include: [
                 { model: Advertisement },
                 { model: Channel },
@@ -83,9 +109,9 @@ export class DealsService {
     };
 
     getChannelOwnerConfirmedDeals = async (UserId): Promise<IDeal[]> => {
-        const channelOwner: IChannelOwner = await this.channelOwnerModel.findOne({ where: { UserId } });
+        const channelOwner: IChannelOwner = await this.getChannelOwnerByUserId(UserId);
         return this.dealsModel.findAll({
-            where: { ChannelOwnerId: channelOwner.id, status: EStatuses.confirmed },
+            where: { ChannelOwnerId: channelOwner.id, status: Status.confirmed },
             include: [
                 { model: Advertisement },
                 { model: Channel },
@@ -94,9 +120,9 @@ export class DealsService {
         });
     };
     getChannelOwnerRejectedDeals = async (UserId): Promise<IDeal[]> => {
-        const channelOwner: IChannelOwner = await this.channelOwnerModel.findOne({ where: { UserId } });
+        const channelOwner: IChannelOwner = await this.getChannelOwnerByUserId(UserId);
         return this.dealsModel.findAll({
-            where: { ChannelOwnerId: channelOwner.id, status: EStatuses.rejected },
+            where: { ChannelOwnerId: channelOwner.id, status: Status.rejected },
             include: [
                 { model: Advertisement },
                 { model: Channel },
@@ -106,7 +132,7 @@ export class DealsService {
     };
 
     confirmDeal = async (dealId: number): Promise<IDeal> => {
-        await this.dealsModel.update({ status: EStatuses.confirmed }, { where: { id: dealId } });
+        await this.dealsModel.update({ status: Status.confirmed }, { where: { id: dealId } });
         return this.dealsModel.findOne({
             where: { id: dealId },
             include: [
@@ -118,7 +144,7 @@ export class DealsService {
     };
 
     rejectDeal = async (dealId: number): Promise<IDeal> => {
-        await this.dealsModel.update({ status: EStatuses.rejected }, { where: { id: dealId } });
+        await this.dealsModel.update({ status: Status.rejected }, { where: { id: dealId } });
         return this.dealsModel.findOne({
             where: { id: dealId },
             include: [

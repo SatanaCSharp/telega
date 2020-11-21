@@ -1,5 +1,5 @@
-export enum EStatuses {
-    pending = 'pending',
-    confirmed = 'confirmed',
-    rejected = 'rejected',
+export const  Status: Record<string, string> = {
+    pending: 'pending',
+    confirmed: 'confirmed',
+    rejected: 'rejected',
 }

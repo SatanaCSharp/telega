@@ -452,6 +452,322 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Deals",
+			"item": [
+				{
+					"name": "Create Deal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1OTg1MDAzLCJleHAiOjE2MDYyNDQyMDN9.JDIZAwTlgZXE6JAlQLodk5BakVj7qrqYo3IS0vwemlg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ChannelId\": 1,\n    \"AdvertisementId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/v1/deals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"deals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": " Pending deals of AdvertisingProvider ",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1OTg1MDAzLCJleHAiOjE2MDYyNDQyMDN9.JDIZAwTlgZXE6JAlQLodk5BakVj7qrqYo3IS0vwemlg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/deals/advertising-provider/pending",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"deals",
+								"advertising-provider",
+								"pending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pending Deals of ChannelOwner",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA1OTg3NTA5LCJleHAiOjE2MDYyNDY3MDl9.xQuqA9VgpGvf4R5MyqNwYKFAO5mrIYkSadiHP45Yk0Q",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/deals/channel-owner/pending",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"deals",
+								"channel-owner",
+								"pending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Deal By ChannelOwner",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA1OTg3NTA5LCJleHAiOjE2MDYyNDY3MDl9.xQuqA9VgpGvf4R5MyqNwYKFAO5mrIYkSadiHP45Yk0Q",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/deals/1/confirm",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"deals",
+								"1",
+								"confirm"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Deal By Advertising Provider",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA1OTg3NTA5LCJleHAiOjE2MDYyNDY3MDl9.xQuqA9VgpGvf4R5MyqNwYKFAO5mrIYkSadiHP45Yk0Q",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/deals/2/reject",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"deals",
+								"2",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirmed Deals of Channel Owner",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA1OTg3NTA5LCJleHAiOjE2MDYyNDY3MDl9.xQuqA9VgpGvf4R5MyqNwYKFAO5mrIYkSadiHP45Yk0Q",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/deals/channel-owner/confirmed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"deals",
+								"channel-owner",
+								"confirmed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rejected Deals of Channel Owner",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA1OTg3NTA5LCJleHAiOjE2MDYyNDY3MDl9.xQuqA9VgpGvf4R5MyqNwYKFAO5mrIYkSadiHP45Yk0Q",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/deals/channel-owner/rejected",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"deals",
+								"channel-owner",
+								"rejected"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirmed Deals of AdvertisingProvider",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1OTg1MDAzLCJleHAiOjE2MDYyNDQyMDN9.JDIZAwTlgZXE6JAlQLodk5BakVj7qrqYo3IS0vwemlg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/deals/advertising-provider/confirmed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"deals",
+								"advertising-provider",
+								"confirmed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rejected Deals of Advertising Provider",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1OTg1MDAzLCJleHAiOjE2MDYyNDQyMDN9.JDIZAwTlgZXE6JAlQLodk5BakVj7qrqYo3IS0vwemlg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/deals/advertising-provider/rejected",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"deals",
+								"advertising-provider",
+								"rejected"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Deal",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA1OTg1MDAzLCJleHAiOjE2MDYyNDQyMDN9.JDIZAwTlgZXE6JAlQLodk5BakVj7qrqYo3IS0vwemlg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/deals/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"deals",
+								"3"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
