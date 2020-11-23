@@ -14,10 +14,10 @@ export class ChannelsController {
 
     @Get('/')
     public async getAll(@Query() query: IPaginateParams): Promise<ChannelsDto[]> {
-        const DEFAULT_QUANTITY = 10;
+        const DEFAULT_QUANTITY_PER_PAGE = 10;
         const paginateDto: IPaginateDto = {
-            limit: Number(query.quantity) || DEFAULT_QUANTITY,
-            offset: query.page ? Number(query.page) * Number(query.quantity) : 0 ,
+            limit: Number(query.quantityPerPage) || DEFAULT_QUANTITY_PER_PAGE,
+            offset: query.page ? Number(query.page) * Number(query.quantityPerPage) : 0 ,
             order: query.order || 'DESC',
             orderFieldName: query.orderFieldName || 'createdAt',
         };

@@ -1,7 +1,7 @@
 
 export interface IPaginateParams {
     page: number;
-    quantity: number;
+    quantityPerPage: number;
     order: 'ASC' | 'DESC';
     orderFieldName: string;
 }

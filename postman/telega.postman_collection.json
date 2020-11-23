@@ -210,7 +210,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/channels?page=0&quantity=5&order=ASC&orderFieldName=createdAt",
+							"raw": "http://localhost:5000/api/v1/channels?page=0&quantityPerPage=5&order=ASC&orderFieldName=createdAt",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -227,7 +227,7 @@
 									"value": "0"
 								},
 								{
-									"key": "quantity",
+									"key": "quantityPerPage",
 									"value": "5"
 								},
 								{
@@ -463,6 +463,45 @@
 								"v1",
 								"advertisements",
 								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All advertisements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/advertisements?page=0&quantityPerPage=15&order=DESC&orderFieldName=createdAt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"advertisements"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "quantityPerPage",
+									"value": "15"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "orderFieldName",
+									"value": "createdAt"
+								}
 							]
 						}
 					},

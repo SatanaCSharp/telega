@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, Put, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Post, Put, Query, UseGuards, ValidationPipe } from '@nestjs/common';
 import { AdvertisementsService } from './advertisements.service';
 import { AdvertisementsDto } from './dto/advertisements.dto';
 import { IAdvertisement } from './interfaces/iadvertisement';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '../common/decorators/user.decorator';
 import { CreateAdvertisementsDto } from './dto/create-advertisements.dto';
+import { IPaginateDto, IPaginateParams } from '../common/Ipaginate-params';
 
 @Controller('advertisements')
 export class AdvertisementsController {
@@ -12,8 +13,15 @@ export class AdvertisementsController {
     }
 
     @Get('/')
-    public async getAll(): Promise<AdvertisementsDto[]> {
-        const advertisements: IAdvertisement[] = await this.advertisementsService.findAll();
+    public async getAll(@Query() query: IPaginateParams): Promise<AdvertisementsDto[]> {
+        const DEFAULT_QUANTITY_PER_PAGE = 10;
+        const paginateDto: IPaginateDto = {
+            limit: Number(query.quantityPerPage) || DEFAULT_QUANTITY_PER_PAGE,
+            offset: query.page ? Number(query.page) * Number(query.quantityPerPage) : 0 ,
+            order: query.order || 'DESC',
+            orderFieldName: query.orderFieldName || 'createdAt',
+        };
+        const advertisements: IAdvertisement[] = await this.advertisementsService.findAll(paginateDto);
         return advertisements.map((advertisement: IAdvertisement) => new AdvertisementsDto(advertisement));
     }
     @UseGuards(AuthGuard('jwt'))
