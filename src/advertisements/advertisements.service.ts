@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Advertisement } from './advertisements.model';
 import { AdvertisingProvider } from '../advertising-providers/advertising-providers.model';
 import { User } from '../users/users.model';
+import { IPaginateDto } from '../common/Ipaginate-params';
 
 @Injectable()
 export class AdvertisementsService {
@@ -33,7 +34,7 @@ export class AdvertisementsService {
         return advertisement;
     };
 
-    findAll = async (): Promise<IAdvertisement[]> => {
+    findAll = async (paginateDto: IPaginateDto): Promise<IAdvertisement[]> => {
         return this.advertisementModel.findAll({
             where: { isPublished: true },
             include: [
@@ -42,6 +43,9 @@ export class AdvertisementsService {
                     include: [{ model: User }],
                 },
             ],
+            limit: paginateDto.limit,
+            offset: paginateDto.offset,
+            order: [[paginateDto.orderFieldName, paginateDto.order]]
         });
     };
     getAuthUserAdvertisements = async (UserId: number): Promise<IAdvertisement[]> => {
