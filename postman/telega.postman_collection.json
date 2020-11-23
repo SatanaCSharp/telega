@@ -210,7 +210,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/channels",
+							"raw": "http://localhost:5000/api/v1/channels?page=0&quantity=5&order=ASC&orderFieldName=createdAt",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -220,6 +220,24 @@
 								"api",
 								"v1",
 								"channels"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "quantity",
+									"value": "5"
+								},
+								{
+									"key": "order",
+									"value": "ASC"
+								},
+								{
+									"key": "orderFieldName",
+									"value": "createdAt"
+								}
 							]
 						}
 					},
@@ -562,7 +580,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/v1/deals/1/confirm",
+							"raw": "http://localhost:5000/api/v1/deals/4/confirm",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -572,7 +590,7 @@
 								"api",
 								"v1",
 								"deals",
-								"1",
+								"4",
 								"confirm"
 							],
 							"query": [
