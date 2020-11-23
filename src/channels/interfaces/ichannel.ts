@@ -9,5 +9,5 @@ export interface IChannel {
     postsCount: number;
     priceRate: number;
     ChannelOwnerId: number;
-    channelOwner: IChannelOwner
+    channelOwner: IChannelOwner;
 }
